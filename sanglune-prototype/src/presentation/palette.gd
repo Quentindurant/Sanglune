@@ -19,7 +19,10 @@ const SILHOUETTE := Color("#000000") ## le noir pur est réservé aux combattant
 const SILVER := Color("#D6DEE8")
 const CYAN := Color("#6FE7FF")
 const FOE_RED := Color("#FF3B30")
+const VENOM := Color("#B46CFF") ## le venin d'un seigneur : un violet vif, réservé au gameplay
 
 # Interface.
 const INK := Color("#F3E9EC")
 const QUIET := Color("#BFB0C9")
+const GAIN := SILVER ## ce qu'une pièce renforce
+const LOSS := Color("#E8828B") ## ce qu'elle affaiblit : un rouge sourd, lisible sur le fond

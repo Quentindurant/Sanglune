@@ -1,5 +1,5 @@
 extends GutTest
-## Écran de choix : toucher une carte, changer au clavier, confirmer.
+## Écran « Chevaliers » : toucher une carte, changer au clavier, choisir, revenir.
 
 var select: KnightSelect
 
@@ -49,3 +49,21 @@ func test_frappe_confirms_the_selected_knight() -> void:
     assert_signal_emitted(select, "confirmed")
     var knight: KnightClass = get_signal_parameters(select, "confirmed")[0]
     assert_eq(knight.id, KnightClass.COLOSSE)
+
+
+func test_back_cancels_without_choosing() -> void:
+    watch_signals(select)
+    _card(2).pressed.emit()
+    assert_true(select.go_back())
+    assert_signal_emitted(select, "cancelled")
+    assert_signal_not_emitted(select, "confirmed")
+
+
+func test_equip_opens_the_armory_of_the_selected_knight() -> void:
+    watch_signals(select)
+    _card(1).pressed.emit()
+    select.request_equip()
+    assert_signal_emitted(select, "equip_requested")
+    var knight: KnightClass = get_signal_parameters(select, "equip_requested")[0]
+    assert_eq(knight.id, KnightClass.FAUCHEUSE)
+    assert_signal_not_emitted(select, "confirmed")

@@ -48,11 +48,11 @@ func test_parade_protects_only_while_active() -> void:
 func test_action_requested_while_busy_waits_in_buffer() -> void:
     var f := Fighter.new(-1, 3500)
     f.stun(3)
-    f.request(CombatAction.Kind.ESTOC)
+    f.request(CombatAction.Kind.PARADE)
     assert_false(f.try_start_buffered(), "occupé : l'action attend")
     _run(f, 3)
     assert_true(f.try_start_buffered())
-    assert_eq(f.action, CombatAction.Kind.ESTOC)
+    assert_eq(f.action, CombatAction.Kind.PARADE)
 
 
 func test_buffered_action_expires() -> void:
@@ -63,18 +63,18 @@ func test_buffered_action_expires() -> void:
     assert_eq(f.buffered_action, CombatAction.Kind.NONE)
 
 
-func test_rune_needs_a_full_gauge() -> void:
+func test_ultimate_needs_a_full_rune_gauge() -> void:
     var f := Fighter.new(-1, 3500)
     f.rune = Fighter.MAX_RUNE - 1
-    f.request(CombatAction.Kind.RUNE)
+    f.request(CombatAction.Kind.ULTIME)
     assert_false(f.try_start_buffered())
     assert_eq(f.rune, Fighter.MAX_RUNE - 1, "la jauge n'est pas consommée")
 
 
-func test_rune_empties_the_gauge() -> void:
+func test_ultimate_empties_the_rune_gauge() -> void:
     var f := Fighter.new(-1, 3500)
     f.rune = Fighter.MAX_RUNE
-    f.request(CombatAction.Kind.RUNE)
+    f.request(CombatAction.Kind.ULTIME)
     assert_true(f.try_start_buffered())
     assert_eq(f.rune, 0)
 
@@ -89,7 +89,7 @@ func test_hits_charge_the_rune_up_to_its_max() -> void:
 
 
 func test_stun_cancels_the_current_action() -> void:
-    var f := _started(CombatAction.Kind.ESTOC)
+    var f := _started(CombatAction.Kind.FRAPPE)
     f.stun(10)
     assert_eq(f.action, CombatAction.Kind.NONE)
     assert_eq(f.phase, Fighter.Phase.STUNNED)
@@ -97,5 +97,5 @@ func test_stun_cancels_the_current_action() -> void:
 
 func test_hp_never_goes_below_zero() -> void:
     var f := Fighter.new(-1, 3500)
-    f.take_hit(500, 5)
+    f.take_hit(f.max_hp() * 5, 5)
     assert_eq(f.hp, 0)

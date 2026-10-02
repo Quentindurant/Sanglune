@@ -11,7 +11,7 @@ func test_right_on_screen_means_retreat_for_the_right_knight() -> void:
 
 
 func test_action_is_passed_through() -> void:
-    assert_eq(PlayerInput.build(0, CombatAction.Kind.ESTOC, 1).action, CombatAction.Kind.ESTOC)
+    assert_eq(PlayerInput.build(0, CombatAction.Kind.PARADE, 1).action, CombatAction.Kind.PARADE)
 
 
 func test_every_action_gets_registered() -> void:

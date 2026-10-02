@@ -67,6 +67,16 @@ func test_colosse_is_the_slowest_and_hits_the_hardest() -> void:
         assert_lt(colosse.walk_speed, other.walk_speed, other.display_name)
 
 
+func test_rodeuse_jumps_and_dodges_the_farthest_and_colosse_the_shortest() -> void:
+    var rodeuse := _knight(KnightClass.RODEUSE)
+    var colosse := _knight(KnightClass.COLOSSE)
+    for other in _others(KnightClass.RODEUSE):
+        assert_gt(rodeuse.jump_speed, other.jump_speed, other.display_name)
+        assert_gt(rodeuse.dodge_speed, other.dodge_speed, other.display_name)
+    for other in _others(KnightClass.COLOSSE):
+        assert_lt(colosse.dodge_speed, other.dodge_speed, other.display_name)
+
+
 func test_only_the_colosse_breaks_the_guard_with_every_hit() -> void:
     for knight in KnightClass.all():
         assert_eq(knight.breaks_guard, knight.id == KnightClass.COLOSSE, knight.display_name)

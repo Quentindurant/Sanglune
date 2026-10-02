@@ -4,7 +4,11 @@ extends RefCounted
 ## et un contour bien visible quand un bouton a le focus clavier.
 
 const CORNER_RADIUS := 14
-const BUTTON_FONT_SIZE := 28
+const BUTTON_FONT_SIZE := 30
+
+## Polices de la planche : Grenze Gotisch pour les titres, Grenze pour l'interface et les chiffres (licence OFL).
+const TEXT_FONT: Font = preload("res://assets/fonts/grenze_ui.tres")
+const TITLE_FONT: Font = preload("res://assets/fonts/grenze_gotisch_title.tres")
 
 
 static func box(bg: Color, border: Color, border_width: int = 2) -> StyleBoxFlat:
@@ -28,7 +32,9 @@ static func make_button(text: String, primary: bool, min_size: Vector2) -> Butto
     button.add_theme_stylebox_override("hover", box(bg.lightened(0.12), border))
     button.add_theme_stylebox_override("pressed", box(bg.darkened(0.25), Palette.INK))
     button.add_theme_stylebox_override("focus", box(Color.TRANSPARENT, Palette.INK, 3))
+    button.add_theme_stylebox_override("disabled", box(Palette.NIGHT, Color(Palette.QUIET, 0.3))) ## voilé, mais lisible
     button.add_theme_font_size_override("font_size", BUTTON_FONT_SIZE)
     for color_name: String in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
         button.add_theme_color_override(color_name, Palette.INK)
+    button.add_theme_color_override("font_disabled_color", Color(Palette.QUIET, 0.6))
     return button

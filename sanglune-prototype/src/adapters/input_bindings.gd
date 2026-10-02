@@ -1,15 +1,16 @@
 class_name InputBindings
 extends RefCounted
 ## Actions d'entrée et leurs touches clavier, pour jouer aussi sur PC.
-## Touches physiques : sur un clavier AZERTY, KEY_A correspond à la touche Q.
+## Touches physiques : sur un clavier AZERTY, KEY_A correspond à Q et KEY_W à Z (ZQSD).
 
 const BINDINGS := {
     "move_left": [KEY_A, KEY_LEFT],
     "move_right": [KEY_D, KEY_RIGHT],
+    "saut": [KEY_W, KEY_UP],
+    "esquive": [KEY_S, KEY_DOWN, KEY_SPACE],
     "frappe": [KEY_J],
-    "estoc": [KEY_K],
     "parade": [KEY_L],
-    "rune": [KEY_I],
+    "ultime": [KEY_I],
 }
 
 
